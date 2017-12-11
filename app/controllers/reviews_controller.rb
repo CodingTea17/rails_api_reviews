@@ -2,7 +2,7 @@ class ReviewsController < ApplicationController
   include Response
 
   def index
-    @reviews = Review.all
+    @reviews = Review.result_limit(params[:page])
     @reviews = @reviews.destination_filter(params[:destination]) if params[:destination].present?
     @reviews = @reviews.popular_by_destination(params[:pop_des]) if params[:pop_des] === "true"
     if params[:rand_rev] === "true"
